@@ -73,39 +73,7 @@ router.get('/search', async (req, res) => {
     }
 });
 
-// GET /search: Search for books by title, author, or ISBN
-router.get('/search', async (req, res) => {
-    try {
-        const { title, author, isbn } = req.query;
-        let query = {};
-
-        if (title) query.title = { $regex: title, $options: 'i' };  // Case-insensitive search
-        if (author) query.author = { $regex: author, $options: 'i' };
-        if (isbn) query.isbn = isbn;
-
-        const books = await Book.find(query);
-        res.status(200).json(books);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-});
-// GET /search: Search for books by title, author, or ISBN
-router.get('/search', async (req, res) => {
-    try {
-        const { title, author, isbn } = req.query;
-        let query = {};
-
-        if (title) query.title = { $regex: title, $options: 'i' };  // Case-insensitive search
-        if (author) query.author = { $regex: author, $options: 'i' };
-        if (isbn) query.isbn = isbn;
-
-        const books = await Book.find(query);
-        res.status(200).json(books);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-});
-
+// GET /:id: Get a book by its ID
 router.get('/:id', async (req, res) => {
     try {
         const book = await Book.findById(req.params.id);
@@ -118,6 +86,8 @@ router.get('/:id', async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
+});
+
 });
 // PUT /books/:id: Update an existing book's details
 router.put('/:id', async (req, res) => {
